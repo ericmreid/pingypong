@@ -1,0 +1,11 @@
+mixin playerForm(player = {})
+   form(action=`/player/${player._id || 'add'}` method="POST")
+      input(type='hidden', name='_csrf', value=_csrf)
+
+      label(for="firstName") First Name
+      input(type="text" name="firstName" value=player.firstName)
+
+      label(for="lastName") Last Name
+      input(type="text" name="lastName" value=player.lastName)
+
+      input(type="submit" class="button" value="Save")
