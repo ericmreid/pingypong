@@ -14,8 +14,8 @@ exports.createPlayer = async (req, res) => {
   }
 
   const player = await (new Player(req.body)).save();
-   req.flash('success', `Successfully created ${player.firstName} ${player.lastName}.`);
-   res.redirect(`/player/${player._id}`);
+  req.flash('success', {msg: `Successfully created ${player.firstName} ${player.lastName}.`});
+  res.redirect(`/player/${player._id}`);
 };
 
 exports.showPlayer = async (req, res) => {

@@ -68,3 +68,31 @@ textarea {
 .fa {
   margin-right: 6px;
 }
+
+.grid-container{
+  display: grid;
+  background-color: lightgrey;
+  grid-gap: 5px;
+  height: 70vh;
+  padding: 5px;
+}
+
+.grid-item{
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.grid-item-header{
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-item-disabled{
+  background-color: grey;
+}
+
+.pointer{
+  cursor: pointer;
+}

@@ -1,13 +1,12 @@
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
 const matchSchema = new mongoose.Schema({
-  winner: Schema.Types.ObjectId,
-  loser: Schema.Types.ObjectId,
-  winnerScore: Number,
-  loserScore: Number,
+  winner: mongoose.Schema.Types.ObjectId,
+  loser: mongoose.Schema.Types.ObjectId,
+  // winnerScore: Number,
+  // loserScore: Number,
   date: {type: Date, default: Date.now},
-}, { timestamps: true });
+});
 
-const Match = mongoose.model('Match', matchSchema);
-
-module.exports = Match;
+module.exports = mongoose.model('Match', matchSchema);

@@ -1,4 +1,69 @@
 extends layout
 
 block content
-  
+
+  script.
+    function postScoreUpdate(winner_id, loser_id, updateType, csrf_id){
+      let form = document.createElement("form");
+
+      form.setAttribute("method", "post");
+      if(updateType == 'remove'){
+        form.setAttribute("action", "match/remove");
+      }
+      else{
+        form.setAttribute("action", "match/add");
+      }
+
+      var csrf = document.createElement("input");
+      csrf.setAttribute("type", "hidden");
+      csrf.setAttribute("name", "_csrf");
+      csrf.setAttribute("value", csrf_id);
+      form.appendChild(csrf);
+
+      var winner = document.createElement("input");
+      winner.setAttribute("type", "hidden");
+      winner.setAttribute("name", "winner");
+      winner.setAttribute("value", winner_id);
+      form.appendChild(winner);
+      
+      var loser = document.createElement("input");
+      loser.setAttribute("type", "hidden");
+      loser.setAttribute("name", "loser");
+      loser.setAttribute("value", loser_id);
+      form.appendChild(loser);
+
+      document.body.appendChild(form);
+      form.submit();
+    }
+
+  .grid-container(style=`grid-template-columns: repeat(${players.length + 1}, 1fr); grid-template-rows: repeat(${players.length + 1}, 1fr);`)
+    .grid-item-disabled
+    each header in players
+      .grid-item.grid-item-header #{header.firstName}'s wins
+        //- .fa.fa-arrow-down
+    each loser in players
+      .grid-item.grid-item-header #{loser.firstName}'s losses
+        //- .fa.fa-arrow-right
+      each winner in players
+        if winner._id == loser._id
+          .grid-item-disabled
+        else
+          form.grid-item(action="match/update" method="POST")
+            input(type="hidden" name="_csrf" value=_csrf)
+            input(type="hidden" name="winner" value=winner._id)
+            input(type="hidden" name="loser" value=loser._id)
+            .grid-item-score.fa.fa-minus.pointer(onclick=`postScoreUpdate("${winner._id}", "${loser._id}", "remove", "${_csrf}")`)
+            if scores[winner._id]
+              if scores[winner._id][loser._id]
+                - var score = scores[winner._id][loser._id]
+              else
+                - var score = 0
+            else
+                - var score = 0
+            .grid-item-score.score #{score}
+            //- .grid-item-score.fa.fa-plus.pointer(onclick=`postScoreUpdate(${winner._id}, ${loser._id})`)
+            .grid-item-score.fa.fa-plus.pointer(onclick=`postScoreUpdate("${winner._id}", "${loser._id}", "add", "${_csrf}")`)
+
+
+
+

@@ -35,6 +35,7 @@ const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const playerController = require('./controllers/player');
+const matchController = require('./controllers/match');
 
 /**
  * API keys and Passport configuration.
@@ -142,6 +143,8 @@ app.get('/player/add', playerController.addPlayer);
 app.post('/player/add', playerController.createPlayer);
 app.get('/player/:id', playerController.showPlayer);
 // app.post('/player/:id', playerController.updatePlayer);
+app.post('/match/add', matchController.addMatch);
+app.post('/match/remove', matchController.removeMatch);
 
 /**
  * API examples routes.

@@ -1,0 +1,14 @@
+mixin playerForm(player = {})
+   form(action=`/match/${player._id || 'add'}` method="POST")
+      input(type='hidden', name='_csrf', value=_csrf)
+
+      label(for="winnerScore") #{winner.firstName}'s score
+      input(type="text" name="winnerScore" value=match.winnerScore)
+
+      label(for="loserScore") #{loser.firstName}'s score
+      input(type="text" name="loserScore" value=match.loserScore)
+
+      label(for="date") Date
+      input(type="text" name="date" value=match.date)
+
+      input(type="submit" class="button" value="Save")
